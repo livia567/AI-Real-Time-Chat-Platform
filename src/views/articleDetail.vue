@@ -1,13 +1,5 @@
 <template>
   <div class="articleDetail-container">
-    <!-- header区域 -->
-    <div class="header-section">
-      <div class="header-content">
-        <el-image :src="iconUrl" style="width: 60px; height: 60px"></el-image>
-        <h1>知识文章详情</h1>
-      </div>
-    </div>
-
     <!-- content区域 -->
     <div class="content">
       <!-- 文章信息区域 -->
@@ -75,8 +67,6 @@ import { ref, onMounted } from "vue";
 import { getKnowledgeDetail } from "@/api/frontend";
 import dayjs from "dayjs";
 
-const iconUrl = new URL("@/assets/images/book.png", import.meta.url).href;
-
 //通过defineProps获取id
 const props = defineProps({
   id: String,
@@ -116,16 +106,6 @@ onMounted(() => {
       span {
         margin-left: 5px;
       }
-    }
-  }
-  .header-section {
-    background: linear-gradient(135deg, #f59e0b 0%, #8b5cf6 100%);
-    color: white;
-    padding: 48px;
-    .header-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
     }
   }
   .content {

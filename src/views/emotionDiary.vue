@@ -121,8 +121,6 @@ import { ElMessage } from "element-plus";
 import dayjs from "dayjs";
 import { addEmotionDiary } from "@/api/frontend";
 
-const iconUrl = new URL("@/assets/images/like.png", import.meta.url).href;
-
 //情绪星级评分
 const emotionStatus = [
   "绝望崩溃",

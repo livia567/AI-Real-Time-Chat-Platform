@@ -80,8 +80,6 @@ import { Platform } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
-const iconUrl = new URL("@/assets/images/book.png", import.meta.url).href;
 const coverUrl = new URL("@/assets/images/cover.jpg", import.meta.url).href;
 
 //分页参数
@@ -109,8 +107,14 @@ const getPageList = () => {
   });
 };
 
+// 控制是否使用默认图片的开关
+const useDefaultCover = ref(true); // 设置为 true 表示强制使用默认图片
+
 //获取封面图片
 const getImage = (url) => {
+  if (useDefaultCover.value) {
+    return coverUrl; // 强制使用默认图片
+  }
   return url ? "http://159.75.169.224:1235" + url : coverUrl;
 };
 

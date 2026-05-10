@@ -52,12 +52,24 @@
         <el-form-item label="手机号" prop="phone">
           <el-input
             v-model="formData.phone"
-            placeholder="请输入手机号（可选）"
+            placeholder="请输入11位手机号"
             size="large"
           ></el-input>
         </el-form-item>
 
-        <!-- 第五行：密码 -->
+        <!-- 第五行：性别 -->
+        <el-form-item label="性别" prop="gender">
+          <el-select
+            v-model="formData.gender"
+            placeholder="请选择性别"
+            size="large"
+          >
+            <el-option label="男" :value="1"></el-option>
+            <el-option label="女" :value="2"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <!-- 第六行：密码 -->
         <el-form-item label="密码" prop="password">
           <el-input
             v-model="formData.password"
@@ -68,7 +80,7 @@
           ></el-input>
         </el-form-item>
 
-        <!-- 第六行：确认密码 -->
+        <!-- 第七行：确认密码 -->
         <el-form-item label="确认密码" prop="confirmPassword">
           <el-input
             v-model="formData.confirmPassword"
@@ -109,7 +121,7 @@ const formData = reactive({
   phone: "",
   password: "",
   confirmPassword: "",
-  gender: 0,
+  gender: "",
   userType: 1, //用户类型 1:普通用户 2:管理员
 });
 
@@ -119,6 +131,15 @@ const rules = reactive({
   email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   confirmPassword: [{ required: true, message: "请确认密码", trigger: "blur" }],
+  phone: [
+    { required: true, message: "请输入手机号", trigger: "blur" },
+    {
+      pattern: /^1[3-9]\d{9}$/,
+      message: "请输入有效的11位手机号",
+      trigger: "blur",
+    },
+  ],
+  gender: [{ required: true, message: "请选择性别", trigger: "change" }],
 });
 
 //表单提交
@@ -127,6 +148,7 @@ const submitFormRef = ref(null);
 const submitForm = async (formEl) => {
   if (!formEl) return;
   formEl.validate(async (valid) => {
+    if (!valid) return;
     // 这里data需要解构赋值，因为register返回的是一个对象，里面有一个data属性，我们只需要data属性
     register(formData).then(({ data }) => {
       console.log(data);
